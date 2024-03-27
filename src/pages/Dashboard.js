@@ -7,7 +7,6 @@ import {ListingCard} from "../components/ListingCard";
 const Dashboard = () => {
   const [sellListings, setSellListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
-  console.log(sellListings, rentListings);
   useEffect(()=>{
     const fetch = async ()=>{
       try {
@@ -41,10 +40,10 @@ const Dashboard = () => {
         console.log('sell', sellSearchQuery, 'rent', rentSearchQuery);
         const sellResponse = await axios.get(`/api/listing?${sellSearchQuery}`);
         const rentResponse = await axios.get(`/api/listing?${rentSearchQuery}`);
-        if (sellResponse.status === 200) {
+        if (sellResponse.status === 200 && sellResponse.data.listings) {
           setSellListings(sellResponse.data.listings)
         }
-        if (rentResponse.status === 200) {
+        if (rentResponse.status === 200 && rentResponse.data.listings) {
           setRentListings(rentResponse.data.listings)
         }
       } catch (error) {
@@ -67,22 +66,28 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className='my-4'>
-          <div className='text-lg font-semibold text-slate-700 my-1'> Recent things for sale</div>
-          <div className='grid grid-cols-5 gap-4'>
-            {sellListings.map((item, index)=>{
-              return <ListingCard {...item} key={index} height={50} />
-            })}
+        {sellListings?.length >0 && 
+          <div className='my-4'>
+            <div className='text-lg font-semibold text-slate-700 my-1'> Recent things for sale</div>
+            <div className='grid grid-cols-5 gap-4'>
+              {sellListings.map((item, index)=>{
+                return <ListingCard {...item} key={index} height={50} />
+              })}
+            </div>
           </div>
-        </div>
-        <div className='my-4'>
-          <div className='text-lg font-semibold text-slate-700 my-1'> Recent things for rent</div>
-          <div className='grid grid-cols-5 gap-4'>
-            {rentListings.map((item, index)=>{
-              return <ListingCard {...item} key={index} height={50} />
-            })}
-          </div>
-        </div>
+        }
+        {
+          rentListings?.length > 0 && 
+            <div className='my-4'>
+              <div className='text-lg font-semibold text-slate-700 my-1'> Recent things for rent</div>
+              <div className='grid grid-cols-5 gap-4'>
+                {rentListings.map((item, index)=>{
+                  return <ListingCard {...item} key={index} height={50} />
+                })}
+              </div>
+            </div>
+        }
+       
     </PageLayout>
 
   )

@@ -49,5 +49,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.1"
   },
-  "proxy": "https://random-listing-6utona8p4-witchhunt27s-projects.vercel.app"
+  "proxy": "https://random-listing-api.vercel.app/"
 }
