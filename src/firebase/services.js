@@ -20,7 +20,7 @@ export const fileTypes = [
   export const googleLogin = async()=>{
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider)
+    return await signInWithPopup(auth, provider)
 }
 export const appSignOut = async()=>{
     await signOut(auth)
