@@ -17,12 +17,11 @@ export const fileTypes = [
     "image/x-icon"
   ];
 
-export const googleLogin = async()=>{
+  export const googleLogin = async()=>{
+    const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider)
-    return result
+    await signInWithPopup(auth, provider)
 }
-
 export const appSignOut = async()=>{
     await signOut(auth)
 }
