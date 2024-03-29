@@ -38,7 +38,7 @@ export const ProfilePic = () => {
       },
       onFileSelect: async(url)=>{
         try {
-          const response = await axios.patch(`/api/user/${userdata._id}`, {
+          const response = await axios.patch(`${process.env.REACT_APP_proxy}/api/user/${userdata._id}`, {
             photoURL : url
           })
           if (response.status === 200) {

@@ -24,7 +24,7 @@ const Login = () => {
     setIsLoading(true)
     try {
       const response = await axios.post( 
-          '/api/auth/login',{
+          `${process.env.REACT_APP_proxy}/api/auth/login`,{
             email, password
       })
       if (response.status === 200) {

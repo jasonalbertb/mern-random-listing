@@ -16,7 +16,7 @@ export const GoogleLoginBtn = () => {
                 try {
                     if (user) {
                         const response = await axios.post(
-                            '/api/auth/googlelogin',{
+                            `${process.env.REACT_APP_proxy}/api/auth/googlelogin`,{
                             email: user.email,
                             photoURL: user.photoURL || ""
                         }) 

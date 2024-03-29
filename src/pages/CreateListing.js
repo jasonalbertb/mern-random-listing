@@ -68,7 +68,7 @@ const CreateListing = () => {
         ...data, imageUrls
       };
 
-      const response = await axios.post('/api/listing', value)
+      const response = await axios.post(`${process.env.REACT_APP_proxy}/api/listing`, value)
       if (response.status === 200) {
         navigate(ROUTES.LISTING_ITEM(response.data.listing._id))  
       }

@@ -48,6 +48,5 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.1"
-  },
-  "proxy": "https://random-listing-api.vercel.app/"
+  }
 }

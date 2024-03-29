@@ -37,9 +37,8 @@ const Dashboard = () => {
         }
         const sellSearchQuery = sellUrlParams.toString();
         const rentSearchQuery = rentUrlParams.toString();
-        console.log('sell', sellSearchQuery, 'rent', rentSearchQuery);
-        const sellResponse = await axios.get(`https://random-listing-api.vercel.app/api/listing?${sellSearchQuery}`);
-        const rentResponse = await axios.get(`https://random-listing-api.vercel.app/api/listing?${rentSearchQuery}`);
+        const sellResponse = await axios.get(`${process.env.REACT_APP_proxy}/api/listing?${sellSearchQuery}`);
+        const rentResponse = await axios.get(`${process.env.REACT_APP_proxy}/api/listing?${rentSearchQuery}`);
         if (sellResponse.status === 200 && sellResponse.data.listings) {
           setSellListings(sellResponse.data.listings)
         }

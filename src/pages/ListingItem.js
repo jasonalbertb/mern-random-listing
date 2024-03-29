@@ -21,7 +21,7 @@ const ListingItem = () => {
         (async()=>{
             try {
                 setIsLoading(true)
-                const url = `/api/listing/${id}`;
+                const url = `${process.env.REACT_APP_proxy}/api/listing/${id}`;
                 const response = await axios.get(url);
                 if (response.status === 200) {
                     setListingData(response.data.listing)

@@ -42,7 +42,7 @@ const UpdateListing = () => {
         ...oldImages, ...imageUrls
       ];
 
-      const response = await axios.patch(`/api/listing/${id}`, {...data, imageUrls})
+      const response = await axios.patch(`${process.env.REACT_APP_proxy}/api/listing/${id}`, {...data, imageUrls})
       if (response.status === 200) {
         setIsSuccess(true)
       }
@@ -74,7 +74,7 @@ const UpdateListing = () => {
       (async()=>{
           try {
             setIsLoading(true)
-            const url = `/api/listing/${id}`;
+            const url = `${process.env.REACT_APP_proxy}/api/listing/${id}`;
             const response = await axios.get(url);
             if (response.status === 200) {
               const listing = response.data.listing;

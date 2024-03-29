@@ -27,7 +27,7 @@ const Profile = () => {
   const handleLogout = async(e)=>{
     e.preventDefault();
     try {
-      await axios.post('/api/auth/logout', {})
+      await axios.post(`${process.env.REACT_APP_proxy}/api/auth/logout`, {})
       await appSignOut();
       dispatch(logout())
       navigate(ROUTES.DASHBOARD)
@@ -44,7 +44,7 @@ const Profile = () => {
       setPageIsLoading(true);
       if (userId) {
         try {      
-          const response = await axios.get(`/api/user/${userId}`);
+          const response = await axios.get(`${process.env.REACT_APP_proxy}/api/user/${userId}`);
           if (response.status === 200) {
             setUserdata(response.data.data);
           }
@@ -62,7 +62,7 @@ const Profile = () => {
       const {username, photoURL} = userdata;
       if (userCred) {
         try {
-          const response = await axios.patch(`/api/user/${userCred._id}`, {
+          const response = await axios.patch(`${process.env.REACT_APP_proxy}/api/user/${userCred._id}`, {
             username, photoURL
           });
           if (response.status === 200) {
@@ -83,7 +83,7 @@ const Profile = () => {
       setPageIsLoading(true);
       if (userId) {
         try {      
-          const response = await axios.get(`/api/user/${userId}`);
+          const response = await axios.get(`${process.env.REACT_APP_proxy}/api/user/${userId}`);
           if (response.status === 200) {
             setUserdata(response.data.data);
           }

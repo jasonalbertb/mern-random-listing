@@ -40,7 +40,7 @@ const Search = () => {
       try {
         urlParams.set('limit', limit);
         const searchQuery = urlParams.toString();
-        const response = await axios.get(`/api/listing?${searchQuery}`);
+        const response = await axios.get(`${process.env.REACT_APP_proxy}/api/listing?${searchQuery}`);
         if (response.status === 200) {
          
           setListings(response.data.listings);
@@ -93,7 +93,7 @@ const Search = () => {
       setIsLoading(true)
       try {
         const searchQuery = urlParams.toString();
-        const response = await axios.get(`/api/listing?${searchQuery}`);
+        const response = await axios.get(`${process.env.REACT_APP_proxy}/api/listing?${searchQuery}`);
         if (response.status === 200) {
           setHasMore(limit === response.data.listings.length);
           if (startIndex===0) {

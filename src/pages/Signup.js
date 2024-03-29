@@ -26,7 +26,7 @@ const Signup = () => {
     setIsSignupBtnDisabled(true);
     setIsSignupBtnLoading(true)
     try {
-      await axios.post('/api/auth/register', {
+      await axios.post(`${process.env.REACT_APP_proxy}/api/auth/register`, {
         email, username, password
       })
       return navigate(ROUTES.LOGIN)
