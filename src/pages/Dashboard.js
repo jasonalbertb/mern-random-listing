@@ -39,6 +39,7 @@ const Dashboard = () => {
         const rentSearchQuery = rentUrlParams.toString();
         const sellResponse = await axios.get(`${process.env.REACT_APP_proxy}/api/listing?${sellSearchQuery}`);
         const rentResponse = await axios.get(`${process.env.REACT_APP_proxy}/api/listing?${rentSearchQuery}`);
+        console.log('sell link', `${process.env.REACT_APP_proxy}/api/listing?${sellSearchQuery}`, sellResponse.data);
         if (sellResponse.status === 200 && sellResponse.data.listings) {
           setSellListings(sellResponse.data.listings)
         }
