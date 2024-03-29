@@ -13,16 +13,20 @@ export const GoogleLoginBtn = () => {
     useEffect(()=>{
         const unsub = onAuthStateChanged(getAuth(), (user)=>{
             const fetch = async ()=>{
-                if (user) {
-                    const response = await axios.post(
-                        '/api/auth/googlelogin',{
-                        email: user.email,
-                        photoURL: user.photoURL || ""
-                    }) 
-                    if (response.status === 200) {
-                        dispatch(login(response.data.data))
+                try {
+                    if (user) {
+                        const response = await axios.post(
+                            '/api/auth/googlelogin',{
+                            email: user.email,
+                            photoURL: user.photoURL || ""
+                        }) 
+                        if (response.status === 200) {
+                            dispatch(login(response.data.data))
+                        }
+                        setisGoogleBtnDisabled(false)
                     }
-                    setisGoogleBtnDisabled(false)
+                } catch (error) {
+                    console.log(error);
                 }
             }
             fetch ()
