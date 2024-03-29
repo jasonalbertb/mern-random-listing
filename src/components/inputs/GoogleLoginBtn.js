@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {googleLogin} from "../../firebase/services";
 import axios from 'axios';
+import {onAuthStateChanged, getAuth} from "firebase/auth"
 
 import {login} from "../../store/userSlice";
 import {useDispatch} from "react-redux";
@@ -9,25 +10,31 @@ export const GoogleLoginBtn = () => {
 
     const [isGoogleBtnDisabled, setisGoogleBtnDisabled] = useState(false);
     
-    const handleGoogleLoginBtn = async(e)=>{
-        e.preventDefault();
-        //email pfp
-        try {
-            setisGoogleBtnDisabled(true)
-            const result = await googleLogin();
-            
-            if (result?.user?.email) {
-                const response = await axios.post(
-                    '/api/auth/googlelogin',{
-                    email: result.user.email,
-                    photoURL: result.user?.photoURL || ""
-                }) 
-                if (response.status === 200) {
-                    dispatch(login(response.data.data))
+    useEffect(()=>{
+        const unsub = onAuthStateChanged(getAuth(), (user)=>{
+            const fetch = async ()=>{
+                if (user) {
+                    const response = await axios.post(
+                        '/api/auth/googlelogin',{
+                        email: user.email,
+                        photoURL: user.photoURL || ""
+                    }) 
+                    if (response.status === 200) {
+                        dispatch(login(response.data.data))
+                    }
+                    setisGoogleBtnDisabled(false)
                 }
             }
-           
-            setisGoogleBtnDisabled(false)
+            fetch ()
+        })
+        return unsub;
+    }, [dispatch])
+
+    const handleGoogleLoginBtn = async(e)=>{
+        e.preventDefault();
+        try {
+            setisGoogleBtnDisabled(true)
+            await googleLogin();
         } catch (error) {
             console.log(error);
         }
